@@ -1,1 +1,18 @@
-<p>projects works!</p>
+<div class="m-0 d-flex justify-content-center mt-3">
+  <!-- PROJECTS LIST -->
+  <div class="w-50 ml-3 mr-2">
+    <app-projects-list
+    [projects]="projects$ |async"
+    (selected)= "selectProject($event)"
+    (deleted)="deleteProject($event)"
+    ></app-projects-list>
+  </div>
+  <!-- PROJECT DETAILS -->
+  <div class="w-50 mr-3 ml-2">
+    <app-projects-detail
+    [project]="selectedProject"
+    (saved)="saveProject($event)"
+    (cancelled)="cancel()"
+    ></app-projects-detail>
+  </div>
+</div>

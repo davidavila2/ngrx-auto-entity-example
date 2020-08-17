@@ -9,6 +9,10 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectsItemComponent } from './projects/projects-item/projects-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { Project } from './models/projects-model';
+import { ProjectService } from './services/projects-service/projects.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,9 +26,17 @@ import { MaterialModule } from './material.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: Project,
+      useClass: ProjectService
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
