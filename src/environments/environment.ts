@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  rootUrl: 'https://my-30-x-30-database.herokuapp.com/'
+  rootUrl: 'https://my-30-x-30-database.herokuapp.com'
 };
 
 /*

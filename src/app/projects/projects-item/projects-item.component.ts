@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from 'src/app/services/projects-service/projects.service';
 import { Observable } from 'rxjs';
-import { Project } from 'src/app/models/projects-model';
+import { Projects } from 'src/app/models/projects-model';
 
 @Component({
   selector: 'app-projects-item',
@@ -28,7 +28,7 @@ export class ProjectsItemComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(param => {
       const id = param.id;
-      this.project$ = this.projectService.findOne(id);
+      this.project$ = this.projectService.load(id);
     });
   }
 

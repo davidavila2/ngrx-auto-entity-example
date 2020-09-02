@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from '../models/projects-model';
-import { ProjectService } from '../services/projects-service/projects.service';
+import { Projects } from '../models/projects-model';
 import { Observable } from 'rxjs';
+import { ProjectFacade } from '../state/projects-state/project.facade';
 
 @Component({
   selector: 'app-projects',
@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  projects$: Observable<any>;
-  selectedProject: Project;
-
-  constructor(private projectsService: ProjectService) { }
+  projects$: Observable<Projects[]> = this.projectsFacade.all$;
+  selectedProject: Projects;
+  project: Projects;
+  constructor(private projectsFacade: ProjectFacade) { }
 
   resetProject() {
-    const emptyProject: Project = {
+    const emptyProject: Projects = {
       id: null,
       title: '',
       details: '',
@@ -25,15 +25,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProjects();
+    this.projectsFacade.loadAll(this.project);
     this.resetProject();
   }
 
-  selectProject(project) {
+  selectProject(project: Projects) {
     this.selectedProject = project;
+    console.log(project, 'lol ');
+    this.projectsFacade.select(project);
   }
 
-  saveProject(project) {
+  saveProject(project: Projects) {
     if (!project.id) {
       this.createProject(project);
     } else {
@@ -41,33 +43,20 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  updateProject(project) {
-    this.projectsService.update(project)
-      .subscribe(() => {
-        this.getProjects();
-        this.resetProject();
-      });
+  updateProject(project: Projects) {
+    this.projectsFacade.update(project);
   }
 
-  createProject(project) {
-    this.projectsService.create(project)
-      .subscribe(() => {
-        this.getProjects();
-        this.resetProject();
-      });
+  createProject(project: Projects) {
+    console.log(project, 'due');
+    this.projectsFacade.create(project);
   }
 
   deleteProject(project) {
-    this.projectsService.delete(project.id)
-      .subscribe(() => this.getProjects());
-  }
-
-  getProjects() {
-    this.projects$ = this.projectsService.all();
+    this.projectsFacade.delete(project);
   }
 
   cancel() {
-    this.getProjects();
     this.resetProject();
   }
 }

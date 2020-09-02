@@ -1,5 +1,5 @@
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
-import { Project } from '../../models/projects-model';
+import { Projects } from '../../models/projects-model';
 
 export const {
   initialState: initialProjectState,
@@ -7,8 +7,8 @@ export const {
     selectAll: allProjects
   },
   facade: ProjectFacadeBase
-} = buildState(Project);
+} = buildState(Projects);
 
-export function projectReducer(state = initialProjectState): IEntityState<Project> {
+export function projectReducer(state = initialProjectState): IEntityState<Projects> {
   return state;
 }

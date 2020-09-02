@@ -9,10 +9,15 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectsItemComponent } from './projects/projects-item/projects-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { Project } from './models/projects-model';
+import { Projects } from './models/projects-model';
 import { ProjectService } from './services/projects-service/projects.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StateModule } from './state/state.module';
+import { EntityService } from './services/entity.service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -29,12 +34,14 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StateModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     {
-      provide: Project,
-      useClass: ProjectService
+      provide: Projects,
+      useClass: EntityService
     }
   ],
   bootstrap: [AppComponent]

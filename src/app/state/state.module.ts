@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import {
-  EntityOperators,
-  NgrxAutoEntityService,
   NgrxAutoEntityModule
 } from '@briebug/ngrx-auto-entity';
 import { EffectsModule } from '@ngrx/effects';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Project } from '../../models/projects-model';
+import { Projects } from '../../models/projects-model';
 import { Observable } from 'rxjs';
 
 const BASE_URL = 'https://my-30-x-30-database.herokuapp.com/';
@@ -17,15 +17,15 @@ export class ProjectService {
     return `${BASE_URL}${this.model}`;
   }
 
-  findOne(projectId: number): Observable<object> {
+  load(projectId: number): Observable<object> {
     return this.httpClient.get(this.getUrlForId(projectId));
   }
 
-  all(): Observable<object> {
+  loadAll(): Observable<object> {
     return this.httpClient.get(this.getUrl());
   }
 
-  create(project: Project): Observable<object> {
+  create(project: Projects): Observable<object> {
     return this.httpClient.post(this.getUrl(), project);
   }
 
@@ -33,7 +33,7 @@ export class ProjectService {
     return `${this.getUrl()}/${id}`;
   }
 
-  update(project: Project): Observable<object> {
+  update(project: Projects): Observable<object> {
     return this.httpClient.patch(this.getUrlForId(project.id), project);
   }
 
